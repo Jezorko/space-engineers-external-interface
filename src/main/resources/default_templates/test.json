@@ -1,0 +1,67 @@
+{
+  "importFonts": [
+    "https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700"
+  ],
+  "defaultFont": "Arial, Sans Serif",
+  "tabs": {
+    "0": [
+      {
+        "id": "test button",
+        "type": "BUTTON",
+        "defaultAction": "OPEN_TAB_1",
+        "defaultText": "go to tab 1",
+        "font": "Arial, Sans Serif",
+        "position": {
+          "top": 10,
+          "left": 10
+        },
+        "size": {
+          "width": 25,
+          "height": 25
+        },
+        "color": {
+          "defaultText": "blue",
+          "background": "red",
+          "border": "green"
+        }
+      },
+      {
+        "id": "test label",
+        "type": "LABEL",
+        "defaultText": "test label",
+        "position": {
+          "top": 45,
+          "left": 45
+        },
+        "size": {
+          "width": 10,
+          "height": 10
+        },
+        "color": {
+          "defaultText": "red",
+          "background": "blue"
+        }
+      }
+    ],
+    "1": [
+      {
+        "id": "another test button",
+        "type": "BUTTON",
+        "defaultAction": "OPEN_TAB_0",
+        "defaultText": "go to tab 0",
+        "position": {
+          "top": 5,
+          "left": 5
+        },
+        "size": {
+          "width": 10,
+          "height": 10
+        },
+        "color": {
+          "defaultText": "green",
+          "background": "blue"
+        }
+      }
+    ]
+  }
+}
