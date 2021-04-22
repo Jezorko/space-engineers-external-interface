@@ -17,6 +17,8 @@ data class ElementTemplate(
     val color: ColorScheme = ColorScheme("black", "white", "black")
 )
 
+private  val whiteSpaceRegex = Regex("\\s")
+
 data class LayoutTemplate(
     val importFonts: List<String> = emptyList(),
     val defaultFont: String = "Courier New",
@@ -31,6 +33,11 @@ data class LayoutTemplate(
 
         val allIds = tabs.values.flatten()
             .map { element -> element.id }
+            .onEach { elementId ->
+                if (elementId.contains(whiteSpaceRegex)) {
+                    throw IllegalArgumentException("element ID must not contain whitespaces")
+                }
+            }
 
         if (allIds.size != allIds.distinct().size) {
             val duplicateIdsCount = allIds.groupingBy { it }.eachCount().filter { it.value > 1 }

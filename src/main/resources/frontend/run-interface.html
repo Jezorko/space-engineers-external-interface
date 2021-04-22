@@ -1,0 +1,112 @@
+<html lang="en">
+<body>
+<div id="mainContainer">
+
+</div>
+</body>
+<script type="module">
+  import {getInterface} from "./api/interfaces.js";
+  import {getTemplate} from "./api/templates.js";
+  import {triggerAction} from "./api/actions.js";
+
+  const mainContainer = document.getElementById('mainContainer');
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const interfaceName = urlParams.get('name');
+  const tabContainers = [];
+  const makeTabVisible = (tabId) => {
+    tabContainers.forEach(tabContainer => {
+      const currentTabId = tabContainer.id.substr(4);
+      if (tabId === currentTabId) {
+        tabContainer.style.display = 'initial';
+      } else {
+        tabContainer.style.display = 'none';
+      }
+    });
+  };
+
+  const pressKey = (action) => {
+    console.log('pressing key', action);
+    triggerAction(action);
+  }
+
+  const openTab = (action) => {
+    console.log('opening tab', action);
+    triggerAction(action).then(() => {
+      const tabId = action.substring(9);
+      makeTabVisible(tabId);
+    });
+  }
+
+  getInterface(interfaceName).then(async theInterface => {
+    const template = await getTemplate(theInterface.templateName);
+
+    if (template.importFonts) {
+      template.importFonts.forEach(fontUrl => {
+        const link = document.createElement('link');
+        link.setAttribute('rel', 'stylesheet');
+        link.setAttribute('type', 'text/css');
+        link.setAttribute('href', fontUrl);
+        document.head.appendChild(link);
+      });
+    }
+
+    let firstTabId = -1;
+    for (const tabId in template.tabs) {
+      if (template.tabs.hasOwnProperty(tabId)) {
+        if (firstTabId === -1) {
+          firstTabId = tabId;
+        }
+        const tab = template.tabs[tabId];
+
+        const tabContainer = document.createElement('div');
+        tabContainers.push(tabContainer);
+        mainContainer.appendChild(tabContainer);
+        tabContainer.id = `tab-${tabId}`;
+        tabContainer.className = 'tab';
+
+        tab.forEach(tabElement => {
+          const elementConfiguration = theInterface.elementsConfiguration[tabElement.id];
+
+          const tabElementContainer = document.createElement(tabElement.type === 'BUTTON' ? 'button' : 'div');
+          tabContainer.appendChild(tabElementContainer);
+          tabElementContainer.id = `tab-element-${tabElement.id}`;
+          tabElementContainer.class = 'tab-element';
+
+          const elementText = elementConfiguration
+              ? (elementConfiguration.text ? elementConfiguration.text : tabElement.defaultText)
+              : tabElement.defaultText;
+          tabElementContainer.textContent = elementText;
+
+          tabElementContainer.style.font = tabElement.font;
+          tabElementContainer.style.top = `${tabElement.position.top}%`;
+          tabElementContainer.style.left = `${tabElement.position.left}%`;
+          tabElementContainer.style.width = `${tabElement.size.width}%`;
+          tabElementContainer.style.height = `${tabElement.size.height}%`;
+          tabElementContainer.style.fontcolor = tabElement.color.text;
+          tabElementContainer.style.background = tabElement.color.background;
+          tabElementContainer.style.borderColor = tabElement.color.border;
+
+          const elementAction = elementConfiguration
+              ? (elementConfiguration.action ? elementConfiguration.action : tabElement.defaultAction)
+              : tabElement.defaultAction;
+
+          if (!elementAction) {
+            console.log(`no action registered for element ${tabElement.id}`);
+          } else if (elementAction.startsWith('PRESS_KEY_')) {
+            tabElementContainer.onclick = () => pressKey(elementAction);
+          } else if (elementAction.startsWith('OPEN_TAB_')) {
+            tabElementContainer.onclick = () => openTab(elementAction);
+          } else {
+            console.error('unknown action', elementAction);
+          }
+        })
+      }
+    }
+    makeTabVisible(firstTabId);
+  }).catch(error => {
+    mainContainer.textContent = `Failed to fetch interface or template: ${error}`
+  });
+
+</script>
+</html>

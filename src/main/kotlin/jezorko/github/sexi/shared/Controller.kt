@@ -1,6 +1,5 @@
 package jezorko.github.sexi.shared
 
-import io.vertx.core.json.Json
 import io.vertx.ext.web.Router
 import org.slf4j.LoggerFactory
 
@@ -25,7 +24,7 @@ interface Controller {
                                 .putHeader("Content-Type", response.contentType)
                                 .end(
                                     if (response.contentType?.startsWith("application/json") == true)
-                                        Json.encode(response.body)
+                                        objectMapper.writeValueAsString(response.body)
                                     else
                                         response.body.toString()
                                 )

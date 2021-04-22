@@ -9,15 +9,16 @@ import jezorko.github.sexi.shared.HttpResponse.Companion.noContent
 import jezorko.github.sexi.shared.HttpResponse.Companion.ok
 import jezorko.github.sexi.shared.RoutingContextWrapper
 
+private const val basePath = "/interfaces"
 private const val interfaceNameParam = "interfaceName"
 
 class InterfacesController(private val interfacesRepository: InterfacesRepository) : Controller {
 
     override fun routes() = listOf(
-        get("/interfaces", this::getInterfaceNames),
-        get("/interfaces/:$interfaceNameParam", this::getInterface),
-        put("/interfaces/:$interfaceNameParam", this::putInterface),
-        delete("/interfaces/:$interfaceNameParam", this::deleteInterface)
+        get(basePath, this::getInterfaceNames),
+        get("$basePath/:$interfaceNameParam", this::getInterface),
+        put("$basePath/:$interfaceNameParam", this::putInterface),
+        delete("$basePath/:$interfaceNameParam", this::deleteInterface)
     )
 
     private fun getInterfaceNames(): HttpResponse {

@@ -6,7 +6,7 @@
   "tabs": {
     "0": [
       {
-        "id": "test button",
+        "id": "test_button",
         "type": "BUTTON",
         "defaultAction": "OPEN_TAB_1",
         "defaultText": "go to tab 1",
@@ -26,7 +26,7 @@
         }
       },
       {
-        "id": "test label",
+        "id": "test_label",
         "type": "LABEL",
         "defaultText": "test label",
         "position": {
@@ -45,7 +45,7 @@
     ],
     "1": [
       {
-        "id": "another test button",
+        "id": "another_test_button",
         "type": "BUTTON",
         "defaultAction": "OPEN_TAB_0",
         "defaultText": "go to tab 0",

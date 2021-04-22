@@ -1,13 +1,47 @@
 <html lang="en">
-<style>
-  #bla {
-    position: relative;
-    top: 10%;
-    left: 35%;
-  }
-</style>
 <body>
-  <button id="bla">test</button>
+<table id="templates"></table>
+<table id="interfaces"></table>
 </body>
-<script lang="javascript" src="application.js"></script>
+<script type="module">
+  import {getTemplateNames} from "./api/templates.js";
+  import {getInterfaceNames} from "./api/interfaces.js";
+  import {baseUrl} from "./api/http.js";
+
+  getTemplateNames().then(templateNames =>
+      templateNames.forEach(templateName => {
+        const templatesTable = document.getElementById('templates');
+
+        const templateRow = document.createElement('tr');
+        templatesTable.appendChild(templateRow);
+
+        const templateNameCell = document.createElement('td');
+        templateRow.appendChild(templateNameCell);
+
+        templateNameCell.textContent = templateName;
+      })
+  );
+
+  getInterfaceNames().then(interfaceNames =>
+      interfaceNames.forEach(interfaceName => {
+        const interfacesTable = document.getElementById('interfaces');
+
+        const interfaceRow = document.createElement('tr');
+        interfacesTable.appendChild(interfaceRow);
+
+        const interfaceNameCell = document.createElement('td');
+        interfaceRow.appendChild(interfaceNameCell);
+        interfaceNameCell.textContent = interfaceName;
+
+        const interfaceLinkCell = document.createElement('td');
+        interfaceRow.appendChild(interfaceLinkCell);
+
+        const interfaceLink = document.createElement('a');
+        interfaceLinkCell.appendChild(interfaceLink);
+        interfaceLink.href = `${baseUrl}/run-interface.html?name=${interfaceName}`;
+        interfaceLink.textContent = 'run';
+      })
+  );
+
+</script>
 </html>
