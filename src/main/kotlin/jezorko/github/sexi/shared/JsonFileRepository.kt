@@ -32,7 +32,11 @@ abstract class JsonFileRepository<T>(
         objectMapper.readValue(valueAsString, tClass)
     }
 
-    fun listTemplateNames() = directory.listFiles()!!.map { it.name }
+    fun delete(name: String) = getFile(name).delete().let { isDeleted ->
+        if (!isDeleted) throw IllegalStateException("failed to delete $name")
+    }
+
+    fun listFileNames() = directory.listFiles()!!.map { it.name }
 
     private fun getFile(name: String): File = File(directory.absolutePath + "/" + name)
     private val directory

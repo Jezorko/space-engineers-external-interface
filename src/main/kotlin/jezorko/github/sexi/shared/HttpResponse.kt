@@ -14,6 +14,7 @@ data class HttpResponse(
 
     companion object {
         fun ok(body: Any?, contentType: String? = "application/json") = HttpResponse(OK, body, contentType)
+        fun badRequest(message: String) = HttpResponse(BAD_REQUEST, message)
         fun notFound() = HttpResponse(NOT_FOUND, null)
         fun created(body: Any? = null) = HttpResponse(CREATED, body)
         fun noContent() = HttpResponse(NO_CONTENT, null)
