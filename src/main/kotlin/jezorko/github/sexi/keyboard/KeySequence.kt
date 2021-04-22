@@ -2,10 +2,12 @@ package jezorko.github.sexi.keyboard
 
 import jezorko.github.sexi.keyboard.KeyAction.PRESS
 import jezorko.github.sexi.keyboard.KeyAction.RELEASE
+import java.awt.Robot
 import java.awt.event.KeyEvent.*
 
-enum class KeyAction {
-    PRESS, RELEASE
+enum class KeyAction(val robotAction: (Robot, Int) -> Unit) {
+    PRESS(Robot::keyPress),
+    RELEASE(Robot::keyRelease)
 }
 
 data class KeySequencePart(val keyAction: KeyAction, val keyEvent: Int)

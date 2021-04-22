@@ -20,7 +20,7 @@
           "height": 25
         },
         "color": {
-          "defaultText": "blue",
+          "text": "blue",
           "background": "red",
           "border": "green"
         }
@@ -38,7 +38,7 @@
           "height": 10
         },
         "color": {
-          "defaultText": "red",
+          "text": "red",
           "background": "blue"
         }
       }
@@ -58,7 +58,7 @@
           "height": 10
         },
         "color": {
-          "defaultText": "green",
+          "text": "green",
           "background": "blue"
         }
       }
