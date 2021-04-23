@@ -20,6 +20,11 @@ val WATCH_FRONTEND_CHANGES = ConfigurationProperty("WATCH_FRONTEND_CHANGES", fal
  */
 val TEMPLATES_DIRECTORY = ConfigurationProperty("TEMPLATES_DIRECTORY", "templates", { it })
 
+/**
+ * Directory where interfaces will be stored.
+ */
+val INTERFACES_DIRECTORY = ConfigurationProperty("INTERFACES_DIRECTORY", "interfaces", { it })
+
 data class ConfigurationProperty<T>(
     private val name: String,
     private val defaultValue: T,
