@@ -3,6 +3,7 @@
     "https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700"
   ],
   "defaultFont": "Arial, Sans Serif",
+  "backgroundColor": "gray",
   "tabs": {
     "0": [
       {

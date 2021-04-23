@@ -2,8 +2,22 @@ package jezorko.github.sexi.templates
 
 enum class ElementType { BUTTON, LABEL }
 
-data class Position(val top: Int, val left: Int)
-data class Size(val width: Int, val height: Int)
+data class Position(val top: Int, val left: Int) {
+    init {
+        if (top !in (0..100) || left !in (0..100)) {
+            throw IllegalArgumentException("position elements must have value from 0 to 100")
+        }
+    }
+}
+
+data class Size(val width: Int, val height: Int) {
+    init {
+        if (width !in (0..100) || height !in (0..100)) {
+            throw IllegalArgumentException("size elements must have value from 0 to 100")
+        }
+    }
+}
+
 data class ColorScheme(val text: String = "black", val background: String = "white", val border: String = "black")
 
 data class ElementTemplate(
@@ -17,11 +31,12 @@ data class ElementTemplate(
     val color: ColorScheme = ColorScheme("black", "white", "black")
 )
 
-private  val whiteSpaceRegex = Regex("\\s")
+private val whiteSpaceRegex = Regex("\\s")
 
 data class LayoutTemplate(
     val importFonts: List<String> = emptyList(),
     val defaultFont: String = "Courier New",
+    val backgroundColor: String = "white",
     val tabs: Map<Int, List<ElementTemplate>>
 ) {
     init {
