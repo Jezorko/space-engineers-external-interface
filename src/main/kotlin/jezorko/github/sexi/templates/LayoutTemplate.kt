@@ -25,6 +25,7 @@ data class Border(val style: String = "solid", val size: String = "initial")
 data class ElementTemplate(
     val id: String,
     val type: ElementType,
+    val sound: String?,
     val defaultAction: String?,
     val defaultText: String? = "",
     val font: String?,

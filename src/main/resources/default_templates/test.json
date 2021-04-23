@@ -9,6 +9,7 @@
       {
         "id": "test_button",
         "type": "BUTTON",
+        "sound": "http://www.soundjay.com/button/beep-07.wav",
         "defaultAction": "OPEN_TAB_1",
         "defaultText": "go to tab 1",
         "font": "Arial, Sans Serif",

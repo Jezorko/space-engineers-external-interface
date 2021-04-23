@@ -18,6 +18,8 @@
   const openInFullScreenButton = document.getElementById('openInFullScreenButton');
   const removeFullScreenContainerButton = document.getElementById('removeFullScreenContainerButton');
 
+  const soundContainers = {};
+
   const openFullscreen = () => {
     if (mainContainer.requestFullscreen) {
       mainContainer.requestFullscreen();
@@ -132,12 +134,39 @@
               ? (elementConfiguration.action ? elementConfiguration.action : tabElement.defaultAction)
               : tabElement.defaultAction;
 
+          let playSound = () => {
+          };
+          const soundLink = tabElement.sound;
+          if (soundLink && soundLink !== '') {
+            let soundContainer;
+            if (!(soundLink in soundContainers)) {
+              soundContainer = document.createElement('audio');
+              soundContainer.id = `tab-element-${tabElement.id}-sound`;
+              soundContainer.src = soundLink;
+              soundContainer.autoplay = false;
+              document.head.appendChild(soundContainer);
+              soundContainers[soundLink] = soundContainer;
+              console.log('created sound container with ID', soundContainer.id);
+            } else {
+              soundContainer = soundContainers[soundLink];
+              console.log('reusing existing sound container', tabElementContainer.id, soundContainer.id);
+            }
+
+            playSound = () => soundContainer.play();
+          }
+
           if (!elementAction) {
             console.log(`no action registered for element ${tabElement.id}`);
           } else if (elementAction.startsWith('PRESS_KEY_')) {
-            tabElementContainer.onclick = () => pressKey(elementAction);
+            tabElementContainer.onclick = () => {
+              playSound();
+              pressKey(elementAction);
+            };
           } else if (elementAction.startsWith('OPEN_TAB_')) {
-            tabElementContainer.onclick = () => openTab(elementAction);
+            tabElementContainer.onclick = () => {
+              playSound();
+              openTab(elementAction);
+            };
           } else {
             console.error('unknown action', elementAction);
           }
