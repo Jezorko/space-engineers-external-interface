@@ -24,6 +24,10 @@
           "text": "blue",
           "background": "red",
           "border": "green"
+        },
+        "border": {
+          "style": "dashed",
+          "size": "10px"
         }
       },
       {

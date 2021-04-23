@@ -125,6 +125,8 @@
           tabElementContainer.style.fontSize = elementFontSize;
           tabElementContainer.style.background = tabElement.color.background;
           tabElementContainer.style.borderColor = tabElement.color.border;
+          tabElementContainer.style.border = tabElement.border.style;
+          tabElementContainer.style.borderWidth = tabElement.border.size;
 
           const elementAction = elementConfiguration
               ? (elementConfiguration.action ? elementConfiguration.action : tabElement.defaultAction)

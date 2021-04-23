@@ -20,6 +20,8 @@ data class Size(val width: Int, val height: Int) {
 
 data class ColorScheme(val text: String = "black", val background: String = "white", val border: String = "black")
 
+data class Border(val style: String = "solid", val size: String = "initial")
+
 data class ElementTemplate(
     val id: String,
     val type: ElementType,
@@ -29,7 +31,8 @@ data class ElementTemplate(
     val fontSize: String = "initial",
     val position: Position,
     val size: Size,
-    val color: ColorScheme = ColorScheme("black", "white", "black")
+    val color: ColorScheme = ColorScheme(),
+    val border: Border = Border()
 )
 
 private val whiteSpaceRegex = Regex("\\s")
