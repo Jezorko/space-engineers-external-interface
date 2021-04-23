@@ -111,7 +111,7 @@
               : tabElement.defaultText;
           tabElementContainer.textContent = elementText;
 
-          tabElementContainer.style.font = tabElement.font;
+          tabElementContainer.style.fontFamily = tabElement.font ? tabElement.font : template.defaultFont;
           tabElementContainer.style.top = `${tabElement.position.top}%`;
           tabElementContainer.style.left = `${tabElement.position.left}%`;
           tabElementContainer.style.width = `${tabElement.size.width}%`;
