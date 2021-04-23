@@ -1,6 +1,6 @@
 <html lang="en">
 <body>
-<div id="openInFullScreenContainer" style="position: absolute; width: 50%; background:#ef8733">
+<div id="openInFullScreenContainer" style="position: absolute; width: 50%; z-index: 999; background:#ef8733">
   <div>Would you like to open in fullscreen?</div>
   <button id="openInFullScreenButton">Yes</button>
   <button id="removeFullScreenContainerButton">Nope</button>
@@ -112,6 +112,7 @@
           tabElementContainer.textContent = elementText;
 
           tabElementContainer.style.fontFamily = tabElement.font ? tabElement.font : template.defaultFont;
+          tabElementContainer.style.position = 'absolute';
           tabElementContainer.style.top = `${tabElement.position.top}%`;
           tabElementContainer.style.left = `${tabElement.position.left}%`;
           tabElementContainer.style.width = `${tabElement.size.width}%`;
