@@ -1,7 +1,11 @@
 <html lang="en">
 <body>
+<div id="openInFullScreenContainer" style="background:#ef8733">
+  <div>Would you like to open in fullscreen?</div>
+  <button id="openInFullScreenButton">Yes</button>
+  <button id="removeFullScreenContainerButton">Nope</button>
+</div>
 <div id="mainContainer">
-
 </div>
 </body>
 <script type="module">
@@ -10,6 +14,32 @@
   import {triggerAction} from "./api/actions.js";
 
   const mainContainer = document.getElementById('mainContainer');
+  const openInFullScreenContainer = document.getElementById('openInFullScreenContainer');
+  const openInFullScreenButton = document.getElementById('openInFullScreenButton');
+  const removeFullScreenContainerButton = document.getElementById('removeFullScreenContainerButton');
+
+  const openFullscreen = () => {
+    if (mainContainer.requestFullscreen) {
+      mainContainer.requestFullscreen();
+    } else if (mainContainer.webkitRequestFullscreen) { /* Safari */
+      mainContainer.webkitRequestFullscreen();
+    } else if (mainContainer.msRequestFullscreen) { /* IE11 */
+      mainContainer.msRequestFullscreen();
+    }
+  }
+
+  const closeFullscreen = () => {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) { /* Safari */
+      document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) { /* IE11 */
+      document.msExitFullscreen();
+    }
+  }
+
+  openInFullScreenButton.onclick = openFullscreen;
+  removeFullScreenContainerButton.onclick = () => document.body.removeChild(openInFullScreenContainer);
 
   const urlParams = new URLSearchParams(window.location.search);
   const interfaceName = urlParams.get('name');
