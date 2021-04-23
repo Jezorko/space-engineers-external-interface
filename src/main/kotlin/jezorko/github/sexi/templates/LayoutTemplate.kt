@@ -26,6 +26,7 @@ data class ElementTemplate(
     val defaultAction: String?,
     val defaultText: String? = "",
     val font: String?,
+    val fontSize: String = "initial",
     val position: Position,
     val size: Size,
     val color: ColorScheme = ColorScheme("black", "white", "black")

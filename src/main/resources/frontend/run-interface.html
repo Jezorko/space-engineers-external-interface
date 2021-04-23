@@ -109,8 +109,12 @@
           const elementText = elementConfiguration
               ? (elementConfiguration.text ? elementConfiguration.text : tabElement.defaultText)
               : tabElement.defaultText;
-          tabElementContainer.textContent = elementText;
 
+          const elementFontSize = elementConfiguration
+              ? (elementConfiguration.fontSize ? elementConfiguration.fontSize : tabElement.fontSize)
+              : tabElement.fontSize;
+
+          tabElementContainer.textContent = elementText;
           tabElementContainer.style.fontFamily = tabElement.font ? tabElement.font : template.defaultFont;
           tabElementContainer.style.position = 'absolute';
           tabElementContainer.style.top = `${tabElement.position.top}%`;
@@ -118,6 +122,7 @@
           tabElementContainer.style.width = `${tabElement.size.width}%`;
           tabElementContainer.style.height = `${tabElement.size.height}%`;
           tabElementContainer.style.fontcolor = tabElement.color.text;
+          tabElementContainer.style.fontSize = elementFontSize;
           tabElementContainer.style.background = tabElement.color.background;
           tabElementContainer.style.borderColor = tabElement.color.border;
 

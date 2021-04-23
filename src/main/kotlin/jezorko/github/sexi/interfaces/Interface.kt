@@ -2,6 +2,7 @@ package jezorko.github.sexi.interfaces
 
 data class ElementConfiguration(
     val text: String?,
+    val fontSize: String?,
     val action: String?
 )
 
