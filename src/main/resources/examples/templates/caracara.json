@@ -1,0 +1,438 @@
+{
+  "description": "example template for https://steamcommunity.com/sharedfiles/filedetails/?id=2464668158",
+  "importFonts": [
+    "https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap"
+  ],
+  "defaultFont": "Roboto",
+  "backgroundColor": "gray",
+  "advanced": {
+    "css": ".tabElementButton { border-radius: 5px; }"
+  },
+  "tabs": {
+    "1": [
+      {
+        "id": "engineControl",
+        "type": "LABEL",
+        "text": "ENGINE",
+        "position": {
+          "top": 0,
+          "left": 0
+        },
+        "size": {
+          "width": 100,
+          "height": 25
+        },
+        "color": {
+          "text": "black",
+          "background": "gray"
+        },
+        "border": {
+          "style": "dashed",
+          "size": "2px"
+        }
+      },
+      {
+        "id": "engineParkingMode",
+        "type": "BUTTON",
+        "sound": "https://www.soundjay.com/button/button-25.mp3",
+        "text": "PARKING MODE",
+        "position": {
+          "top": 2,
+          "left": 10
+        },
+        "size": {
+          "width": 15,
+          "height": 21
+        },
+        "color": {
+          "text": "black",
+          "background": "#6CB613"
+        },
+        "border": {
+          "style": "dashed",
+          "size": "5px"
+        }
+      },
+      {
+        "id": "engineCruisingMode",
+        "type": "BUTTON",
+        "sound": "https://www.soundjay.com/button/button-25.mp3",
+        "text": "CRUISING MODE",
+        "position": {
+          "top": 2,
+          "left": 30
+        },
+        "size": {
+          "width": 15,
+          "height": 21
+        },
+        "color": {
+          "text": "black",
+          "background": "#B68213"
+        },
+        "border": {
+          "style": "dashed",
+          "size": "5px"
+        }
+      },
+      {
+        "id": "engineOff",
+        "type": "BUTTON",
+        "sound": "https://www.soundjay.com/button/beep-05.mp3",
+        "text": "⚠ OFF ⚠",
+        "position": {
+          "top": 2,
+          "left": 75
+        },
+        "size": {
+          "width": 15,
+          "height": 21
+        },
+        "color": {
+          "text": "black",
+          "background": "#B61313"
+        },
+        "border": {
+          "style": "dashed",
+          "size": "5px"
+        }
+      },
+
+      {
+        "id": "connectionsControl",
+        "type": "LABEL",
+        "text": "CONNECTIONS",
+        "position": {
+          "top": 25,
+          "left": 0
+        },
+        "size": {
+          "width": 75,
+          "height": 25
+        },
+        "color": {
+          "text": "black",
+          "background": "gray"
+        },
+        "border": {
+          "style": "dashed",
+          "size": "2px"
+        }
+      },
+      {
+        "id": "toggleLandingGear",
+        "type": "BUTTON",
+        "sound": "https://www.soundjay.com/button/button-29.mp3",
+        "text": "LANDING GEAR",
+        "position": {
+          "top": 27,
+          "left": 10
+        },
+        "size": {
+          "width": 15,
+          "height": 21
+        },
+        "color": {
+          "text": "black",
+          "background": "#13B4B6"
+        },
+        "border": {
+          "style": "dashed",
+          "size": "5px"
+        }
+      },
+      {
+        "id": "toggleConnector",
+        "type": "BUTTON",
+        "sound": "https://www.soundjay.com/button/button-29.mp3",
+        "text": "CONNECTOR",
+        "position": {
+          "top": 27,
+          "left": 30
+        },
+        "size": {
+          "width": 15,
+          "height": 21
+        },
+        "color": {
+          "text": "black",
+          "background": "#1327B6"
+        },
+        "border": {
+          "style": "dashed",
+          "size": "5px"
+        }
+      },
+      {
+        "id": "viewConnectorCamera",
+        "type": "BUTTON",
+        "sound": "https://www.soundjay.com/button/button-29.mp3",
+        "text": "CARGO CAM",
+        "position": {
+          "top": 27,
+          "left": 50
+        },
+        "size": {
+          "width": 15,
+          "height": 21
+        },
+        "color": {
+          "text": "black",
+          "background": "#A513B6"
+        },
+        "border": {
+          "style": "dashed",
+          "size": "5px"
+        }
+      },
+
+      {
+        "id": "cabinControl",
+        "type": "LABEL",
+        "text": "CABIN",
+        "position": {
+          "top": 25,
+          "left": 75
+        },
+        "size": {
+          "width": 25,
+          "height": 75
+        },
+        "color": {
+          "text": "black",
+          "background": "gray"
+        },
+        "border": {
+          "style": "dashed",
+          "size": "2px"
+        }
+      },
+      {
+        "id": "cabinLight",
+        "type": "BUTTON",
+        "sound": "https://www.soundjay.com/button/button-29.mp3",
+        "text": "LIGHT",
+        "position": {
+          "top": 30,
+          "left": 80
+        },
+        "size": {
+          "width": 15,
+          "height": 21
+        },
+        "color": {
+          "text": "black",
+          "background": "white"
+        },
+        "border": {
+          "style": "dashed",
+          "size": "5px"
+        }
+      },
+      {
+        "id": "cabinDoor",
+        "type": "BUTTON",
+        "sound": "https://www.soundjay.com/button/button-29.mp3",
+        "text": "DOOR",
+        "position": {
+          "top": 54,
+          "left": 80
+        },
+        "size": {
+          "width": 15,
+          "height": 21
+        },
+        "color": {
+          "text": "black",
+          "background": "#E0C5DA"
+        },
+        "border": {
+          "style": "dashed",
+          "size": "5px"
+        }
+      },
+      {
+        "id": "cabinRadio",
+        "type": "BUTTON",
+        "sound": "https://www.soundjay.com/button/button-29.mp3",
+        "text": "RADIO",
+        "position": {
+          "top": 78,
+          "left": 80
+        },
+        "size": {
+          "width": 15,
+          "height": 21
+        },
+        "color": {
+          "text": "black",
+          "background": "#C5E0C6"
+        },
+        "border": {
+          "style": "dashed",
+          "size": "5px"
+        }
+      },
+
+      {
+        "id": "batteryControl",
+        "type": "LABEL",
+        "text": "BATTERY",
+        "position": {
+          "top": 65,
+          "left": 25
+        },
+        "size": {
+          "width": 25,
+          "height": 25
+        },
+        "color": {
+          "text": "black",
+          "background": "gray"
+        },
+        "border": {
+          "style": "dashed",
+          "size": "2px"
+        }
+      },
+      {
+        "id": "rechargeBattery",
+        "type": "BUTTON",
+        "sound": "https://www.soundjay.com/button/button-29.mp3",
+        "text": "⚠ RECHARGE BATTERIES ⚠",
+        "position": {
+          "top": 67,
+          "left": 30
+        },
+        "size": {
+          "width": 15,
+          "height": 21
+        },
+        "color": {
+          "text": "black",
+          "background": "#FF2300"
+        },
+        "border": {
+          "style": "dashed",
+          "size": "5px"
+        }
+      }
+    ],
+
+    "2": [
+      {
+        "id": "shipControls",
+        "type": "BUTTON",
+        "sound": "https://www.soundjay.com/button/button-29.mp3",
+        "text": "SHIP CONTROLS",
+        "position": {
+          "top": 10,
+          "left": 10
+        },
+        "size": {
+          "width": 25,
+          "height": 80
+        },
+        "color": {
+          "text": "black",
+          "background": "#00FFF7"
+        },
+        "border": {
+          "style": "dashed",
+          "size": "5px"
+        }
+      },
+
+      {
+        "id": "radioControl",
+        "type": "LABEL",
+        "text": "RADIO",
+        "position": {
+          "top": 25,
+          "left": 45
+        },
+        "size": {
+          "width": 60,
+          "height": 50
+        },
+        "color": {
+          "text": "black",
+          "background": "gray"
+        },
+        "border": {
+          "style": "dashed",
+          "size": "2px"
+        }
+      },
+      {
+        "id": "decreaseVolume",
+        "type": "BUTTON",
+        "sound": "https://www.soundjay.com/button/button-29.mp3",
+        "text": "-",
+        "fontSize": "large",
+        "position": {
+          "top": 35,
+          "left": 50
+        },
+        "size": {
+          "width": 15,
+          "height": 30
+        },
+        "color": {
+          "text": "black",
+          "background": "#C6C6C6"
+        },
+        "border": {
+          "style": "dashed",
+          "size": "5px"
+        }
+      },
+      {
+        "id": "toggleRadio",
+        "type": "BUTTON",
+        "sound": "https://www.soundjay.com/button/button-29.mp3",
+        "text": "⏻",
+        "fontSize": "large",
+        "position": {
+          "top": 35,
+          "left": 65
+        },
+        "size": {
+          "width": 15,
+          "height": 30
+        },
+        "color": {
+          "text": "black",
+          "background": "#C6C6C6"
+        },
+        "border": {
+          "style": "dashed",
+          "size": "5px"
+        }
+      },
+      {
+        "id": "increaseVolume",
+        "type": "BUTTON",
+        "sound": "https://www.soundjay.com/button/button-29.mp3",
+        "text": "+",
+        "fontSize": "large",
+        "position": {
+          "top": 35,
+          "left": 80
+        },
+        "size": {
+          "width": 15,
+          "height": 30
+        },
+        "color": {
+          "text": "black",
+          "background": "#C6C6C6"
+        },
+        "border": {
+          "style": "dashed",
+          "size": "5px"
+        }
+      }
+    ]
+  }
+}

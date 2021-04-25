@@ -1,0 +1,27 @@
+{
+  "templateName": "caracara.json",
+  "tabsConfiguration": {
+    "1": {
+      "elementsConfiguration": {
+        "engineParkingMode": { "action": "PRESS_KEY_1" },
+        "engineCruisingMode": { "action": "PRESS_KEY_2" },
+        "engineOff": { "action": "PRESS_KEY_8" },
+        "toggleLandingGear": { "action": "PRESS_KEY_3" },
+        "toggleConnector": { "action": "PRESS_KEY_4" },
+        "viewConnectorCamera": { "action": "PRESS_KEY_5" },
+        "cabinLight": { "action": "PRESS_KEY_6" },
+        "cabinDoor": { "action": "PRESS_KEY_7" },
+        "cabinRadio": { "action": "OPEN_TAB_2" },
+        "rechargeBattery": { "action": "PRESS_KEY_9" }
+      }
+    },
+    "2": {
+      "elementsConfiguration": {
+        "shipControls": { "action": "OPEN_TAB_1" },
+        "decreaseVolume": { "action": "PRESS_KEY_1" },
+        "toggleRadio": { "action": "PRESS_KEY_4" },
+        "increaseVolume": { "action": "PRESS_KEY_2" }
+      }
+    }
+  }
+}
