@@ -22,6 +22,8 @@ data class ColorScheme(val text: String = "black", val background: String = "whi
 
 data class Border(val style: String = "solid", val size: String = "initial")
 
+data class AdvancedSettings(val css: String?)
+
 data class ElementTemplate(
     val id: String,
     val type: ElementType,
@@ -42,7 +44,8 @@ data class LayoutTemplate(
     val importFonts: List<String> = emptyList(),
     val defaultFont: String = "Courier New",
     val backgroundColor: String = "white",
-    val tabs: Map<Int, List<ElementTemplate>>
+    val tabs: Map<Int, List<ElementTemplate>>,
+    val advanced: AdvancedSettings?
 ) {
     init {
         tabs.keys.forEach { tabId ->
