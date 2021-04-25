@@ -28,8 +28,6 @@
     return valueString.charAt(0).toUpperCase() + valueString.slice(1)
   };
 
-  const soundContainers = {};
-
   const openFullscreen = () => {
     if (mainContainer.requestFullscreen) {
       mainContainer.requestFullscreen();
@@ -167,19 +165,22 @@
             };
             const soundLink = tabElement.sound;
             if (soundLink && soundLink !== '') {
-              let soundContainer;
-              if (!(soundLink in soundContainers)) {
+              let soundContainer = null;
+              const allSoundContainers = document.getElementsByClassName('soundContainer');
+              for (let id = 0; id < allSoundContainers.length; ++id) {
+                if (soundLink === allSoundContainers[id].src) {
+                  console.log('reusing existing sound container', tabElementContainer.id, allSoundContainers[id].id);
+                  soundContainer = allSoundContainers[id];
+                }
+              }
+              if (!soundContainer) {
                 soundContainer = document.createElement('audio');
                 soundContainer.id = `tabElement${capitalize(tabElement.id)}Sound`;
                 soundContainer.className = `soundContainer ${generatedClassName}`;
                 soundContainer.src = soundLink;
                 soundContainer.autoplay = false;
                 document.head.appendChild(soundContainer);
-                soundContainers[soundLink] = soundContainer;
                 console.log('created sound container with ID', soundContainer.id);
-              } else {
-                soundContainer = soundContainers[soundLink];
-                console.log('reusing existing sound container', tabElementContainer.id, soundContainer.id);
               }
 
               playSound = () => soundContainer.play();
