@@ -7,8 +7,10 @@ import jezorko.github.sexi.shared.HttpResponse
 import jezorko.github.sexi.shared.HttpResponse.Companion.badRequest
 import jezorko.github.sexi.shared.HttpResponse.Companion.noContent
 import jezorko.github.sexi.shared.HttpResponse.Companion.ok
+import jezorko.github.sexi.shared.KEY_ACTION_DELAY
 import jezorko.github.sexi.shared.RoutingContextWrapper
 import java.awt.Robot
+import java.lang.Thread.sleep
 
 class KeyboardController : Controller {
 
@@ -35,6 +37,9 @@ class KeyboardController : Controller {
         synchronized(this) {
             actionSequence.keySequenceParts.forEach { keySequencePart ->
                 keySequencePart.keyAction.robotAction(robot, keySequencePart.keyEvent)
+                if (KEY_ACTION_DELAY.value > 0) {
+                    sleep(KEY_ACTION_DELAY.value)
+                }
             }
         }
 

@@ -2,12 +2,29 @@ package jezorko.github.sexi.keyboard
 
 import jezorko.github.sexi.keyboard.KeyAction.PRESS
 import jezorko.github.sexi.keyboard.KeyAction.RELEASE
+import jezorko.github.sexi.shared.KEY_ACTION_REPEATS
+import jezorko.github.sexi.shared.KEY_ACTION_REPEATS_DELAY
 import java.awt.Robot
 import java.awt.event.KeyEvent.*
+import java.lang.Thread.sleep
+
+private fun repeatAction(robotAction: (Robot, Int) -> Unit): (Robot, Int) -> Unit {
+    if (KEY_ACTION_REPEATS.value == 1 && KEY_ACTION_REPEATS_DELAY.value == 0L) {
+        return robotAction
+    } else if (KEY_ACTION_REPEATS.value > 1 && KEY_ACTION_REPEATS_DELAY.value == 0L) {
+        return { robot, keyCode -> repeat(KEY_ACTION_REPEATS.value) { robotAction(robot, keyCode) } }
+    } else {
+        return { robot, keyCode ->
+            repeat(KEY_ACTION_REPEATS.value) {
+                robotAction(robot, keyCode); sleep(KEY_ACTION_REPEATS_DELAY.value)
+            }
+        }
+    }
+}
 
 enum class KeyAction(val robotAction: (Robot, Int) -> Unit) {
-    PRESS(Robot::keyPress),
-    RELEASE(Robot::keyRelease)
+    PRESS(repeatAction(Robot::keyPress)),
+    RELEASE(repeatAction(Robot::keyRelease))
 }
 
 data class KeySequencePart(val keyAction: KeyAction, val keyEvent: Int)
