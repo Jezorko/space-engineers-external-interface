@@ -1,9 +1,13 @@
 <html lang="en">
 <body>
-<div id="openInFullScreenContainer" style="position: absolute; width: 50%; z-index: 999; background:#ef8733">
-  <div>Would you like to open in fullscreen?</div>
-  <button id="openInFullScreenButton">Yes</button>
-  <button id="removeFullScreenContainerButton">Nope</button>
+<div id="openInFullScreenContainer"
+     style="position: absolute; width: 50%; height: 15%; z-index: 999; background:#ef8733">
+  <button id="openInFullScreenButton" style="position: absolute; top: 0; width: 50%; height: 100%">
+    Open in fullscreen
+  </button>
+  <button id="removeFullScreenContainerButton" style="position: absolute; top: 0; left: 50%; width: 50%; height: 100%">
+    Continue windowed
+  </button>
 </div>
 <div id="mainContainer" style="width: 100%; height: 100%; margin-left: 0; margin-top: 0;">
 </div>
