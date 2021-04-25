@@ -17,6 +17,7 @@
   const openInFullScreenContainer = document.getElementById('openInFullScreenContainer');
   const openInFullScreenButton = document.getElementById('openInFullScreenButton');
   const removeFullScreenContainerButton = document.getElementById('removeFullScreenContainerButton');
+  const generatedClassName = 'generated';
 
   const capitalize = value => {
     const valueString = value.toString()
@@ -75,120 +76,137 @@
     });
   }
 
-  getInterface(interfaceName).then(async theInterface => {
-    const template = await getTemplate(theInterface.templateName);
-
-    if (template.importFonts) {
-      template.importFonts.forEach((fontUrl, fontId) => {
-        const link = document.createElement('link');
-        link.id = `fontImport${capitalize(fontId)}`;
-        link.className = `fontImport${capitalize(fontId)}`;
-        link.setAttribute('rel', 'stylesheet');
-        link.setAttribute('type', 'text/css');
-        link.setAttribute('href', fontUrl);
-        document.head.appendChild(link);
-      });
+  const reloadUI = () => {
+    const generatedElements = document.getElementsByClassName(generatedClassName);
+    while (generatedElements[0]) {
+      generatedElements[0].parentNode.removeChild(generatedElements[0]);
     }
 
-    if (template.advanced) {
-      if (template.advanced.css) {
-        const style = document.createElement('style');
-        style.id = 'templateStyle';
-        style.className = 'templateStyle';
-        style.textContent = template.advanced.css;
-        document.head.append(style);
+    getInterface(interfaceName).then(async theInterface => {
+      const template = await getTemplate(theInterface.templateName);
+
+      if (template.importFonts) {
+        template.importFonts.forEach((fontUrl, fontId) => {
+          const link = document.createElement('link');
+          link.id = `fontImport${capitalize(fontId)}`;
+          link.className = `fontImport${capitalize(fontId)} ${generatedClassName}`;
+          link.setAttribute('rel', 'stylesheet');
+          link.setAttribute('type', 'text/css');
+          link.setAttribute('href', fontUrl);
+          document.head.appendChild(link);
+        });
       }
-    }
 
-    let firstTabId = -1;
-    for (const tabId in template.tabs) {
-      if (template.tabs.hasOwnProperty(tabId)) {
-        if (firstTabId === -1) {
-          firstTabId = tabId;
+      if (template.advanced) {
+        if (template.advanced.css) {
+          const style = document.createElement('style');
+          style.id = 'templateStyle';
+          style.className = `templateStyle ${generatedClassName}`;
+          style.textContent = template.advanced.css;
+          document.head.append(style);
         }
-        const tab = template.tabs[tabId];
+      }
 
-        const tabContainer = document.createElement('div');
-        tabContainers.push(tabContainer);
-        mainContainer.appendChild(tabContainer);
-        tabContainer.id = `tab${tabId}`;
-        tabContainer.className = 'tab';
-        tabContainer.style.width = '100%';
-        tabContainer.style.height = '100%';
-        tabContainer.style.backgroundColor = template.backgroundColor;
+      let firstTabId = -1;
+      for (const tabId in template.tabs) {
+        if (template.tabs.hasOwnProperty(tabId)) {
+          if (firstTabId === -1) {
+            firstTabId = tabId;
+          }
+          const tab = template.tabs[tabId];
 
-        tab.forEach(tabElement => {
-          const elementConfiguration = theInterface.tabsConfiguration[tabId].elementsConfiguration[tabElement.id];
+          const tabContainer = document.createElement('div');
+          tabContainers.push(tabContainer);
+          mainContainer.appendChild(tabContainer);
+          tabContainer.id = `tab${tabId}`;
+          tabContainer.className = `tab ${generatedClassName}`;
+          tabContainer.style.width = '100%';
+          tabContainer.style.height = '100%';
+          tabContainer.style.backgroundColor = template.backgroundColor;
 
-          const tabElementContainer = document.createElement(tabElement.type === 'BUTTON' ? 'button' : 'div');
-          tabContainer.appendChild(tabElementContainer);
-          tabElementContainer.id = `tabElement${capitalize(tabElement.id)}`;
-          tabElementContainer.className = `tabElement tabElement${tabElement.type === 'BUTTON' ? 'Button' : 'Label'}`;
+          tab.forEach(tabElement => {
+            const elementConfiguration = theInterface.tabsConfiguration[tabId].elementsConfiguration[tabElement.id];
 
-          const elementText = tabElement.text ? tabElement.text : '';
+            const tabElementContainer = document.createElement(tabElement.type === 'BUTTON' ? 'button' : 'div');
+            tabContainer.appendChild(tabElementContainer);
+            tabElementContainer.id = `tabElement${capitalize(tabElement.id)}`;
+            tabElementContainer.className = `tabElement tabElement${tabElement.type === 'BUTTON' ? 'Button'
+                : 'Label'} ${generatedClassName}`;
 
-          const elementFontSize = elementConfiguration
-              ? (elementConfiguration.fontSize ? elementConfiguration.fontSize : tabElement.fontSize)
-              : tabElement.fontSize;
+            const elementText = tabElement.text ? tabElement.text : '';
 
-          tabElementContainer.textContent = elementText;
-          tabElementContainer.style.fontFamily = tabElement.font ? tabElement.font : template.defaultFont;
-          tabElementContainer.style.position = 'absolute';
-          tabElementContainer.style.top = `${tabElement.position.top}%`;
-          tabElementContainer.style.left = `${tabElement.position.left}%`;
-          tabElementContainer.style.width = `${tabElement.size.width}%`;
-          tabElementContainer.style.height = `${tabElement.size.height}%`;
-          tabElementContainer.style.fontcolor = tabElement.color.text;
-          tabElementContainer.style.fontSize = elementFontSize;
-          tabElementContainer.style.background = tabElement.color.background;
-          tabElementContainer.style.borderColor = tabElement.color.border;
-          tabElementContainer.style.border = tabElement.border.style;
-          tabElementContainer.style.borderWidth = tabElement.border.size;
+            const elementFontSize = elementConfiguration
+                ? (elementConfiguration.fontSize ? elementConfiguration.fontSize : tabElement.fontSize)
+                : tabElement.fontSize;
 
-          const elementAction = elementConfiguration ? elementConfiguration.action : null;
+            tabElementContainer.textContent = elementText;
+            tabElementContainer.style.fontFamily = tabElement.font ? tabElement.font : template.defaultFont;
+            tabElementContainer.style.position = 'absolute';
+            tabElementContainer.style.top = `${tabElement.position.top}%`;
+            tabElementContainer.style.left = `${tabElement.position.left}%`;
+            tabElementContainer.style.width = `${tabElement.size.width}%`;
+            tabElementContainer.style.height = `${tabElement.size.height}%`;
+            tabElementContainer.style.fontcolor = tabElement.color.text;
+            tabElementContainer.style.fontSize = elementFontSize;
+            tabElementContainer.style.background = tabElement.color.background;
+            tabElementContainer.style.borderColor = tabElement.color.border;
+            tabElementContainer.style.border = tabElement.border.style;
+            tabElementContainer.style.borderWidth = tabElement.border.size;
 
-          let playSound = () => {
-          };
-          const soundLink = tabElement.sound;
-          if (soundLink && soundLink !== '') {
-            let soundContainer;
-            if (!(soundLink in soundContainers)) {
-              soundContainer = document.createElement('audio');
-              soundContainer.id = `tabElement${capitalize(tabElement.id)}Sound`;
-              soundContainer.src = soundLink;
-              soundContainer.autoplay = false;
-              document.head.appendChild(soundContainer);
-              soundContainers[soundLink] = soundContainer;
-              console.log('created sound container with ID', soundContainer.id);
-            } else {
-              soundContainer = soundContainers[soundLink];
-              console.log('reusing existing sound container', tabElementContainer.id, soundContainer.id);
+            const elementAction = elementConfiguration ? elementConfiguration.action : null;
+
+            let playSound = () => {
+            };
+            const soundLink = tabElement.sound;
+            if (soundLink && soundLink !== '') {
+              let soundContainer;
+              if (!(soundLink in soundContainers)) {
+                soundContainer = document.createElement('audio');
+                soundContainer.id = `tabElement${capitalize(tabElement.id)}Sound`;
+                soundContainer.className = `soundContainer ${generatedClassName}`;
+                soundContainer.src = soundLink;
+                soundContainer.autoplay = false;
+                document.head.appendChild(soundContainer);
+                soundContainers[soundLink] = soundContainer;
+                console.log('created sound container with ID', soundContainer.id);
+              } else {
+                soundContainer = soundContainers[soundLink];
+                console.log('reusing existing sound container', tabElementContainer.id, soundContainer.id);
+              }
+
+              playSound = () => soundContainer.play();
             }
 
-            playSound = () => soundContainer.play();
-          }
-
-          if (!elementAction) {
-            console.log(`no action registered for element ${tabElement.id}`);
-          } else if (elementAction.startsWith('PRESS_KEY_')) {
-            tabElementContainer.onclick = () => {
-              playSound();
-              pressKey(elementAction);
-            };
-          } else if (elementAction.startsWith('OPEN_TAB_')) {
-            tabElementContainer.onclick = () => {
-              playSound();
-              openTab(elementAction);
-            };
-          } else {
-            console.error('unknown action', elementAction);
-          }
-        })
+            if (!elementAction) {
+              console.log(`no action registered for element ${tabElement.id}`);
+            } else if (elementAction.startsWith('PRESS_KEY_')) {
+              tabElementContainer.onclick = () => {
+                playSound();
+                pressKey(elementAction);
+              };
+            } else if (elementAction.startsWith('OPEN_TAB_')) {
+              tabElementContainer.onclick = () => {
+                playSound();
+                openTab(elementAction);
+              };
+            } else {
+              console.error('unknown action', elementAction);
+            }
+          })
+        }
       }
+      makeTabVisible(firstTabId);
+    }).catch(error => {
+      mainContainer.textContent = `Failed to fetch interface or template: ${error}`
+    });
+  };
+
+  reloadUI();
+
+  document.addEventListener("keypress", event => {
+    if (event.key === 'r') {
+      reloadUI();
     }
-    makeTabVisible(firstTabId);
-  }).catch(error => {
-    mainContainer.textContent = `Failed to fetch interface or template: ${error}`
   });
 
 </script>
