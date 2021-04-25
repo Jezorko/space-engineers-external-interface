@@ -13,6 +13,10 @@ class InterfacesRepository(private val templatesRepository: TemplatesRepository)
     listOf("caracara_mk1.json")
 ) {
 
+    fun listFileNamesForTemplate(templateName: String) = listFileNames().filter { fileName ->
+        read(fileName).templateName == templateName
+    }
+
     override fun validate(value: Interface) {
         if (!templatesRepository.exists(value.templateName)) {
             throw IllegalArgumentException("template ${value.templateName} specified in the interface does not exist")

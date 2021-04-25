@@ -8,17 +8,20 @@ import jezorko.github.sexi.shared.HttpResponse
 import jezorko.github.sexi.shared.HttpResponse.Companion.noContent
 import jezorko.github.sexi.shared.HttpResponse.Companion.ok
 import jezorko.github.sexi.shared.RoutingContextWrapper
+import jezorko.github.sexi.templates.templateNameParam
+import jezorko.github.sexi.templates.templatesBasePath
 
-private const val basePath = "/interfaces"
+private const val interfacesBasePath = "interfaces"
 private const val interfaceNameParam = "interfaceName"
 
 class InterfacesController(private val interfacesRepository: InterfacesRepository) : Controller {
 
     override fun routes() = listOf(
-        get(basePath, this::getInterfaceNames),
-        get("$basePath/:$interfaceNameParam", this::getInterface),
-        put("$basePath/:$interfaceNameParam", this::putInterface),
-        delete("$basePath/:$interfaceNameParam", this::deleteInterface)
+        get("/$interfacesBasePath", this::getInterfaceNames),
+        get("/$interfacesBasePath/:$interfaceNameParam", this::getInterface),
+        get("/$templatesBasePath/:$templateNameParam/$interfacesBasePath", this::getAllInterfacesForTemplate),
+        put("/$interfacesBasePath/:$interfaceNameParam", this::putInterface),
+        delete("/$interfacesBasePath/:$interfaceNameParam", this::deleteInterface)
     )
 
     private fun getInterfaceNames(): HttpResponse {
@@ -26,19 +29,24 @@ class InterfacesController(private val interfacesRepository: InterfacesRepositor
     }
 
     private fun getInterface(context: RoutingContextWrapper): HttpResponse {
-        val templateName = context.getPathParam(interfaceNameParam)
-        return ok(interfacesRepository.read(templateName))
+        val interfaceName = context.getPathParam(interfaceNameParam)
+        return ok(interfacesRepository.read(interfaceName))
+    }
+
+    private fun getAllInterfacesForTemplate(context: RoutingContextWrapper): HttpResponse {
+        val templateName = context.getPathParam(templateNameParam)
+        return ok(interfacesRepository.listFileNamesForTemplate(templateName))
     }
 
     private fun putInterface(context: RoutingContextWrapper): HttpResponse {
-        val templateName = context.getPathParam(interfaceNameParam)
-        interfacesRepository.save(templateName, context.getBody(Interface::class))
+        val interfaceName = context.getPathParam(interfaceNameParam)
+        interfacesRepository.save(interfaceName, context.getBody(Interface::class))
         return noContent()
     }
 
     private fun deleteInterface(context: RoutingContextWrapper): HttpResponse {
-        val templateName = context.getPathParam(interfaceNameParam)
-        interfacesRepository.delete(templateName)
+        val interfaceName = context.getPathParam(interfaceNameParam)
+        interfacesRepository.delete(interfaceName)
         return noContent()
     }
 

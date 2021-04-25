@@ -1,8 +1,8 @@
 import {sendRequest} from "./http.js";
 
-const getInterfaceNames = () => sendRequest({
+const getInterfaceNamesForTemplate = (templateName) => sendRequest({
   method: 'GET',
-  url: '/interfaces'
+  url: `/templates/${templateName}/interfaces`
 }).then(
     response => {
       if (response.status !== 200) {
@@ -26,4 +26,4 @@ const getInterface = (name) => sendRequest({
     }
 )
 
-export {getInterfaceNames,getInterface}
+export {getInterfaceNamesForTemplate, getInterface}

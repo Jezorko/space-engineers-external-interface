@@ -1,11 +1,19 @@
 <html lang="en">
+<style>
+  table, th, td {
+    border: 1px solid black;
+  }
+
+  th, td, div {
+    padding: 15px;
+  }
+</style>
 <body>
 <table id="templates"></table>
-<table id="interfaces"></table>
 </body>
 <script type="module">
   import {getTemplateNames} from "./api/templates.js";
-  import {getInterfaceNames} from "./api/interfaces.js";
+  import {getInterfaceNamesForTemplate} from "./api/interfaces.js";
   import {baseUrl} from "./api/http.js";
 
   getTemplateNames().then(templateNames =>
@@ -17,29 +25,24 @@
 
         const templateNameCell = document.createElement('td');
         templateRow.appendChild(templateNameCell);
-
         templateNameCell.textContent = templateName;
-      })
-  );
 
-  getInterfaceNames().then(interfaceNames =>
-      interfaceNames.forEach(interfaceName => {
-        const interfacesTable = document.getElementById('interfaces');
+        const interfacesCell = document.createElement('td');
+        interfacesCell.id = `${templateName}Interfaces`
+        templateRow.appendChild(interfacesCell);
+        getInterfaceNamesForTemplate(templateName).then(interfaceNames =>
+            interfaceNames.forEach(interfaceName => {
+                  const interfaceDiv = document.createElement('div');
+                  interfaceDiv.style.border = '1px solid';
+                  interfacesCell.appendChild(interfaceDiv);
 
-        const interfaceRow = document.createElement('tr');
-        interfacesTable.appendChild(interfaceRow);
-
-        const interfaceNameCell = document.createElement('td');
-        interfaceRow.appendChild(interfaceNameCell);
-        interfaceNameCell.textContent = interfaceName;
-
-        const interfaceLinkCell = document.createElement('td');
-        interfaceRow.appendChild(interfaceLinkCell);
-
-        const interfaceLink = document.createElement('a');
-        interfaceLinkCell.appendChild(interfaceLink);
-        interfaceLink.href = `${baseUrl}/run-interface.html?name=${interfaceName}`;
-        interfaceLink.textContent = 'run';
+                  const interfaceLink = document.createElement('a');
+                  interfaceDiv.appendChild(interfaceLink);
+                  interfaceLink.href = `${baseUrl}/run-interface.html?name=${interfaceName}`;
+                  interfaceLink.textContent = interfaceName;
+                }
+            )
+        )
       })
   );
 
