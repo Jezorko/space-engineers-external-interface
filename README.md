@@ -14,6 +14,12 @@ It works by running a server in the background that emulates keyboard presses.
 
 ## Usage
 
+### Requirements
+
+The application requires JDK >= 1.8 and Maven to build.
+
+Running the JAR requires Java >= 1.8.
+
 ### Build & run
 
 To build an executable JAR:
