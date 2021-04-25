@@ -1,19 +1,23 @@
 package jezorko.github.sexi.shared
 
-import org.slf4j.LoggerFactory
+import org.slf4j.Logger
 import java.io.File
+import java.lang.Thread.currentThread
 
 
 abstract class JsonFileRepository<T>(
+    private val log: Logger,
     private val directoryPath: String,
-    private val tClass: Class<T>
+    private val tClass: Class<T>,
+    private val exampleResourcesDirectory: String?,
+    private val exampleResourceNames: List<String> = emptyList()
 ) {
 
-    private val log = LoggerFactory.getLogger(this.javaClass)
-
-    abstract fun onInit()
+    open fun validate(value: T) {}
 
     fun save(name: String, value: T) = getFile(name).let { file ->
+        validate(value)
+
         if (file.exists()) {
             log.info("overwriting file ${file.absolutePath}")
         }
@@ -32,6 +36,8 @@ abstract class JsonFileRepository<T>(
         objectMapper.readValue(valueAsString, tClass)
     }
 
+    fun exists(name: String) = getFile(name).exists()
+
     fun delete(name: String) = getFile(name).delete().let { isDeleted ->
         if (!isDeleted) throw IllegalStateException("failed to delete $name")
     }
@@ -46,10 +52,22 @@ abstract class JsonFileRepository<T>(
                 if (!mkdirs()) {
                     throw IllegalStateException("cannot create directory at $absolutePath")
                 }
-                onInit()
+                loadExamples()
             } else if (!isDirectory) {
                 throw IllegalStateException("$absolutePath is not a directory")
             }
         }
+
+    private fun loadExamples() {
+        if (exampleResourcesDirectory != null) {
+            exampleResourceNames.forEach { exampleResourceName ->
+                val exampleResourceValue = currentThread().contextClassLoader.getResource(
+                    "$exampleResourcesDirectory/$exampleResourceName"
+                )!!.readText()
+                log.info("writing example file $exampleResourceName")
+                save(exampleResourceName, objectMapper.readValue(exampleResourceValue, tClass))
+            }
+        }
+    }
 
 }

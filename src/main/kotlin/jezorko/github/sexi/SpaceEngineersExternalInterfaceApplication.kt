@@ -12,10 +12,11 @@ private val log = getLogger("main")
 
 
 fun main() {
+    val templatesRepository = TemplatesRepository()
     val controllers = listOf(
         KeyboardController(),
-        TemplatesController(TemplatesRepository()),
-        InterfacesController(InterfacesRepository())
+        TemplatesController(templatesRepository),
+        InterfacesController(InterfacesRepository(templatesRepository))
     )
 
     vertx().deployVerticle(ServerVerticle(controllers))

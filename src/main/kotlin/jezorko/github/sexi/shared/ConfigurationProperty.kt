@@ -11,7 +11,7 @@ val SERVER_PORT = ConfigurationProperty("SERVER_PORT", 3_000, String::toInt)
 
 /**
  * When this variable is set to true, frontend files will be served from the resources directory instead of
- * classpath.
+ * classpath. Will probably not work when running from a JAR file.
  */
 val WATCH_FRONTEND_CHANGES = ConfigurationProperty("WATCH_FRONTEND_CHANGES", false, String::toBoolean)
 

@@ -101,16 +101,14 @@
         tabContainer.style.backgroundColor = template.backgroundColor;
 
         tab.forEach(tabElement => {
-          const elementConfiguration = theInterface.elementsConfiguration[tabElement.id];
+          const elementConfiguration = theInterface.tabsConfiguration[tabId].elementsConfiguration[tabElement.id];
 
           const tabElementContainer = document.createElement(tabElement.type === 'BUTTON' ? 'button' : 'div');
           tabContainer.appendChild(tabElementContainer);
           tabElementContainer.id = `tab-element-${tabElement.id}`;
           tabElementContainer.class = 'tab-element';
 
-          const elementText = elementConfiguration
-              ? (elementConfiguration.text ? elementConfiguration.text : tabElement.defaultText)
-              : tabElement.defaultText;
+          const elementText = tabElement.text ? tabElement.text : '';
 
           const elementFontSize = elementConfiguration
               ? (elementConfiguration.fontSize ? elementConfiguration.fontSize : tabElement.fontSize)
@@ -130,9 +128,7 @@
           tabElementContainer.style.border = tabElement.border.style;
           tabElementContainer.style.borderWidth = tabElement.border.size;
 
-          const elementAction = elementConfiguration
-              ? (elementConfiguration.action ? elementConfiguration.action : tabElement.defaultAction)
-              : tabElement.defaultAction;
+          const elementAction = elementConfiguration ? elementConfiguration.action : null;
 
           let playSound = () => {
           };

@@ -26,8 +26,7 @@ data class ElementTemplate(
     val id: String,
     val type: ElementType,
     val sound: String?,
-    val defaultAction: String?,
-    val defaultText: String? = "",
+    val text: String? = "",
     val font: String?,
     val fontSize: String = "initial",
     val position: Position,
@@ -36,9 +35,10 @@ data class ElementTemplate(
     val border: Border = Border()
 )
 
-private val whiteSpaceRegex = Regex("\\s")
+private val whiteSpaceRegex = "\\s".toRegex()
 
 data class LayoutTemplate(
+    val description: String = "",
     val importFonts: List<String> = emptyList(),
     val defaultFont: String = "Courier New",
     val backgroundColor: String = "white",
@@ -54,7 +54,7 @@ data class LayoutTemplate(
         val allIds = tabs.values.flatten()
             .map { element -> element.id }
             .onEach { elementId ->
-                if (elementId.contains(whiteSpaceRegex)) {
+                if (elementId.matches(whiteSpaceRegex)) {
                     throw IllegalArgumentException("element ID must not contain whitespaces")
                 }
             }
